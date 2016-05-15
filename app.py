@@ -11,8 +11,6 @@ APP_SECRET = os.environ.get('APP_SECRET')
 OAUTH_TOKEN = os.environ.get('OAUTH_TOKEN')
 OAUTH_TOKEN_SECRET = os.environ.get('OAUTH_TOKEN_SECRET')
 
-CURRENCIES = ('BTC', 'LTC', 'DOGE', 'DASH')
-
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 
@@ -31,9 +29,9 @@ Ranking: {rank}
 
 def main():
     response = requests.get('https://api.coinmarketcap.com/v1/ticker/')
-    for currency in filter(lambda x: x['symbol'] in CURRENCIES, response.json()):
+    for currency in sorted(response.json(), key=lambda x: x['rank'])[:10]:
         post_tweet(currency)
-        time.sleep(10)
+        time.sleep(5)
 
 
 if __name__ == '__main__':
