@@ -30,7 +30,7 @@ Ranking: {rank}
 
 def main():
     response = requests.get('https://api.coinmarketcap.com/v1/ticker/')
-    for currency in sorted(response.json(), key=lambda x: x['rank'])[:10]:
+    for currency in sorted(response.json(), key=lambda x: int(x['rank']))[:10]:
         post_tweet(currency)
         time.sleep(5)
 
