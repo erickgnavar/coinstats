@@ -23,7 +23,7 @@ Market cap: ${market_cap_usd}
 Ranking: {rank}
 #{name} #{symbol}
     """
-    if currency['percent_change_1h'] > 0:
+    if float(currency['percent_change_1h']) > 0:
         currency['percent_change_1h'] = '+{}'.format(currency['percent_change_1h'])
     twitter.update_status(status=template.format(**currency))
 
